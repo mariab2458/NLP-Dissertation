@@ -1,0 +1,7 @@
+!pip install bert_score
+import bert_score
+candidate_translation = "poor boat"
+references = ["poor canoe", "frail skiff", "lone skiff"]
+P, R, F1 = bert_score.score([candidate_translation] * len(references), references, lang='en', rescale_with_baseline=True)
+best_f1 = max(F1)
+print(f"Best F1-score: {best_f1:.4f}")
