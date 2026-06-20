@@ -1,0 +1,15 @@
+import nltk
+from nltk.translate.bleu_score import SmoothingFunction, sentence_bleu
+nltk.download('punkt')
+
+def calculate_bleu(candidate: str, references: list) -> float:
+   candidate_tokens = nltk.word_tokenize(candidate)
+   reference_tokens = [nltk.word_tokenize(ref) for ref in references]
+   smoothing_function = SmoothingFunction().method2
+   bleu_score = sentence_bleu(reference_tokens, candidate_tokens, smoothing_function=smoothing_function)
+   return bleu_score
+
+candidate_translation = "poor boat"
+reference_translations = [ "poor canoe", "frail skiff", "lone skiff" ]
+bleu_score = calculate_bleu(candidate_translation, reference_translations)
+print(f"BLEU score: {bleu_score:.4f}")
