@@ -1,0 +1,20 @@
+import nltk
+nltk.download('punkt')
+nltk.download('wordnet')
+from nltk.tokenize import word_tokenize
+from nltk.translate.meteor_score import meteor_score
+import string
+
+def preprocess_text(text):
+   return word_tokenize(text)
+
+def calculate_meteor(references, hypothesis):
+   reference_tokens = [preprocess_text(ref) for ref in references]
+   hypothesis_tokens = preprocess_text(hypothesis)
+   return meteor_score(reference_tokens, hypothesis_tokens)
+
+references = ["the Lord's power", "God's own elements", "godly force"]
+hypothesis = "divine element"
+
+meteor = calculate_meteor(references, hypothesis)
+print(f"METEOR score: {meteor}")
